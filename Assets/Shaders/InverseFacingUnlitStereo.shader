@@ -1,8 +1,9 @@
 ﻿// Based on Unlit shader, but culls the front faces instead of the back
 
-Shader "Unlit/InverseFacingUnlit" {
+Shader "Unlit/InverseFacingUnlitStereo" {
 	Properties {
-		_MainTex ("Base (RGB)", 2D) = "white" {}
+		_MainTex ("Base Left (RGB)", 2D) = "white" {}
+		_MainTexRight ("Base Right (RGB)", 2D) = "white" {}
 	}
 	SubShader {
 		Tags { "RenderType"="Opaque" }
@@ -27,10 +28,10 @@ Shader "Unlit/InverseFacingUnlit" {
 				};
 
 				sampler2D _MainTex;
+				sampler2D _MainTexRight;
 				float4 _MainTex_ST;
-				
-				v2f vert (appdata_t v)
-				{
+
+				v2f vert (appdata_t v) {
 					v2f o;
 					o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
 					// ADDED BY BERNIE:
@@ -39,9 +40,13 @@ Shader "Unlit/InverseFacingUnlit" {
 					return o;
 				}
 				
-				fixed4 frag (v2f i) : SV_Target
-				{
-					fixed4 col = tex2D(_MainTex, i.texcoord);
+				fixed4 frag (v2f i) : SV_Target	{	
+					fixed4 col;
+					if (unity_StereoEyeIndex == 0) {
+						return tex2D(_MainTex, UnityStereoScreenSpaceUVAdjust(i.texcoord, _MainTex_ST));
+					} else {
+						return tex2D(_MainTexRight, UnityStereoScreenSpaceUVAdjust(i.texcoord, _MainTex_ST));
+					}
 					return col;
 				}
 			ENDCG
