@@ -26,7 +26,7 @@ public class ActionSpotDetect : MonoBehaviour {
 			if (!_lastActionItemIsActivated || _lastActionItem.multifire) {
 				progressBar.fillAmount += Time.deltaTime/secsToActivate;
 				if (progressBar.fillAmount >= 1) {
-					_lastActionItem.fireAction();
+					_lastActionItem.FireAction();
 					_lastActionItemIsActivated = true;
 					progressBar.fillAmount = 0;
 				}
@@ -35,6 +35,7 @@ public class ActionSpotDetect : MonoBehaviour {
 	}
 	
 	void RaycastWorldUI() {
+		float planeDistance = 9;
 		ActionSpot actionItem = null;
 		List<RaycastResult> results = new List<RaycastResult>();
 		EventSystem.current.RaycastAll(getRaycastPointer(), results);
@@ -42,6 +43,10 @@ public class ActionSpotDetect : MonoBehaviour {
 		results = results.Where((r) => { return r.gameObject.tag == tagName; }).ToList();
 
 		if (results.Count > 0) {
+			planeDistance = Vector3.Distance(mainCamera.transform.position, results[0].worldPosition);
+			Debug.Log("wp: " + results[0].worldPosition);
+			Debug.Log("cam: " + results[0].worldPosition);
+
 			actionItem = results[0].gameObject.GetComponent<ActionSpot>();
 			if (actionItem == null) {
 				Debug.LogWarningFormat("{0} does not contains ActionSpot Component", results[0]);
@@ -49,6 +54,8 @@ public class ActionSpotDetect : MonoBehaviour {
 			results.Clear();
 		}
 		
+		transform.localPosition = new Vector3(0, 0, planeDistance);
+		transform.localScale = (new Vector3(planeDistance, planeDistance, planeDistance)) * 0.75f;
 		UpdateLookedItem(actionItem);
 	}
 

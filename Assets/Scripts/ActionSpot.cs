@@ -9,7 +9,7 @@ public class ActionSpot : MonoBehaviour {
 	public UnityEvent onLookAction = new UnityEvent();
 	public UnityEvent onLeaveAction = new UnityEvent();
 
-	public void fireAction() {
+	public void FireAction() {
 		Debug.LogFormat("{0} fired Action", name);
 		onFireAction.Invoke();
 	}
