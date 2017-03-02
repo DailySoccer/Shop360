@@ -25,13 +25,13 @@ public class LookAtChecker : MonoBehaviour {
 		UpdateLookedItem(lookedItem);
 	}
 
-	void OnDrawGizmos()	{
+	/*void OnDrawGizmos()	{
 		if (Debug.isDebugBuild) {
 			Transform camTransform = mainCamera.transform;
 			Gizmos.color = _lastLookedItem == null? Color.blue : Color.green;
 			Gizmos.DrawRay(camTransform.position, camTransform.forward * 100);
 		}
-	}
+	}*/
 
 	private void UpdateLookedItem(LookableItem lookedItem) {
 		if (_lastLookedItem != lookedItem) {

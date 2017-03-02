@@ -15,8 +15,14 @@ public class ActionSpotDetect : MonoBehaviour {
 	private ActionSpot _lastActionItem;
 	private bool _lastActionItemIsActivated = false;
 
+	private Quaternion _originalRotation;
+	private Vector3 _originalScale;
+
 	void Start() {
 		progressBar.fillAmount = 0;
+		_originalRotation = transform.localRotation;
+		_originalScale = transform.localScale;
+		//VRSettings.renderScale = 1f;
 	}
 
 	void Update () {
@@ -35,27 +41,40 @@ public class ActionSpotDetect : MonoBehaviour {
 	}
 	
 	void RaycastWorldUI() {
-		float planeDistance = 9;
+		float planeDistance = 90000;
 		ActionSpot actionItem = null;
 		List<RaycastResult> results = new List<RaycastResult>();
 		EventSystem.current.RaycastAll(getRaycastPointer(), results);
+		Vector3 stickyPosition = Vector3.one;
+		Vector3 stickyNormal = Vector3.one;
+		Transform stickyTransform = null;
+		
+		if (results.Count > 0) {
+			//stickyPosition = results[0].worldPosition;
+			//stickyNormal = results[0].worldNormal;
+			stickyTransform = results[0].gameObject.transform;
+			stickyPosition = stickyTransform.position;
+			planeDistance = Vector3.Distance(mainCamera.transform.position, stickyPosition);
+		}
 
 		results = results.Where((r) => { return r.gameObject.tag == tagName; }).ToList();
 
 		if (results.Count > 0) {
-			planeDistance = Vector3.Distance(mainCamera.transform.position, results[0].worldPosition);
-			Debug.Log("wp: " + results[0].worldPosition);
-			Debug.Log("cam: " + results[0].worldPosition);
+			planeDistance = Vector3.Distance(mainCamera.transform.position, stickyPosition);
+			//transform.rotation = Quaternion.FromToRotation(Vector3.back, stickyNormal);
 
 			actionItem = results[0].gameObject.GetComponent<ActionSpot>();
 			if (actionItem == null) {
 				Debug.LogWarningFormat("{0} does not contains ActionSpot Component", results[0]);
 			}
 			results.Clear();
+		} else {
+			transform.localRotation = _originalRotation;
 		}
 		
 		transform.localPosition = new Vector3(0, 0, planeDistance);
-		transform.localScale = (new Vector3(planeDistance, planeDistance, planeDistance)) * 0.75f;
+		transform.localScale = _originalScale * planeDistance;
+
 		UpdateLookedItem(actionItem);
 	}
 
