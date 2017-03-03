@@ -6,4 +6,5 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_Scenes/Shop360Stereo.unity
+    path: Assets/_Scenes/Room 5.unity
+    guid: 9cb649dc2514bd54484bb2b6bc566b54

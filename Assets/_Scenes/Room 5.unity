@@ -54,7 +54,7 @@ LightmapSettings:
     m_EnableBakedLightmaps: 1
     m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
-    serializedVersion: 7
+    serializedVersion: 8
     m_Resolution: 2
     m_BakeResolution: 25
     m_TextureWidth: 1024
@@ -71,9 +71,10 @@ LightmapSettings:
     m_FinalGatherFiltering: 1
     m_FinalGatherRayCount: 256
     m_ReflectionCompression: 2
-    m_StationaryBakeMode: 1
+    m_MixedBakeMode: 1
     m_BakeBackend: 0
     m_PVRSampling: 1
+    m_PVRDirectSampleCount: 32
     m_PVRSampleCount: 500
     m_PVRBounces: 2
     m_PVRFiltering: 0
@@ -1535,10 +1536,10 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1081205724
+  randomSeed: 136163707
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -6702,6 +6703,16 @@ Prefab:
       propertyPath: m_SortingOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114925627735725378, guid: dac128045456d48efb977d59276e64d8,
+        type: 2}
+      propertyPath: secsToActivate
+      value: 3.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 114925627735725378, guid: dac128045456d48efb977d59276e64d8,
+        type: 2}
+      propertyPath: cullingMask.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dac128045456d48efb977d59276e64d8, type: 2}
   m_IsPrefabParent: 0
@@ -11432,10 +11443,10 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1179029924
+  randomSeed: -1589691632
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -15102,7 +15113,7 @@ MonoBehaviour:
   UseUnityRemoteInput: 0
   screenSize: 0
   viewerType: 1
-  stereoScreenScale: 0.25
+  stereoScreenScale: 1
 --- !u!4 &1679919127 stripped
 Transform:
   m_PrefabParentObject: {fileID: 413458, guid: ab7c2d91c2d367b41be17d0543d4de24, type: 2}
@@ -16699,6 +16710,24 @@ Transform:
   m_Father: {fileID: 879760890}
   m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!1 &2047565899 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1206461000034360, guid: dac128045456d48efb977d59276e64d8,
+    type: 2}
+  m_PrefabInternal: {fileID: 644767062}
+--- !u!114 &2047565908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2047565899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec85a8f2bf39b48bbbf13e2cd4a62e49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fairy: {fileID: 224900357}
+  idleDistance: 5
 --- !u!1 &2060918862
 GameObject:
   m_ObjectHideFlags: 0
