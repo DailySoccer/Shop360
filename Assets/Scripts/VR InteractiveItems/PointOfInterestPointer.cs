@@ -59,6 +59,7 @@ public class PointOfInterestPointer : MonoBehaviour {
 
 	private void UpdateLookedItem(CollisionData newRaycastData) {
 		if (newRaycastData.isPointOfInterest) {
+			// hard work
 			FillCollisionScreenComputations(newRaycastData);
 		}
 		UpdateActivationState(newRaycastData);
